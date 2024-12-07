@@ -59,3 +59,7 @@ body{
 justify-content: center;
 margin-top: 5rem !important;
 }
+
+.card-container{
+   padding: 20px !important;
+}
