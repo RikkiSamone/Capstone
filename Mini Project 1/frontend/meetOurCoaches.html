@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meet Our Coaches</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="../index.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
@@ -18,7 +18,7 @@
     </head>
 <body>
     <header>
-        <div class="px-3 py-2 text-bg-dark border-bottom">
+        <div class="px-3 py-2  border-bottom">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
@@ -29,7 +29,7 @@
     
                     <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                         <li>
-                            <a href="home.html" class="nav-link text-secondary">
+                            <a href="home.html" class="nav-link">
                                 <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                     <use xlink:href="#home"></use>
                                 </svg>
@@ -104,90 +104,9 @@
         </template>
         
         </div>
-        <script src="index.js"></script>
+        <script src="../index.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
-
-        
-        <script>
-
-            function addCard(name, title, imageURL, bio, location, url) {
-
-                const template =
-                    document.getElementById("card-template")
-                        .content.cloneNode(true);
-
-                template.querySelector(".card-title").innerText = title;
-                template.querySelector(".coach-name").innerText = name;
-                template.querySelector(".coach-bio").innerText = bio;
-                template.querySelector(".location").innerText = location;
-            
-
-                const node = document.createElement("img");
-                node.src = imageURL;
-                template.querySelector('.card-art').appendChild(node);
-
-
-                /*const linkElement = template.querySelector('.card-link');
-                linkElement.href = linkURL; // Make sure this matches the parameter
-                linkElement.innerText = "Book An Appointment";*/
-
-                document.querySelector('#card-list').appendChild(template);
-
-
-            };
-
-            const coaches = {
-
-                portfolio: [
-
-                    {
-                        name: "Jordan Rivera", title: "Success Coach", url: "../assets/jordan.png",
-                        bio: "Jordan is passionate about helping students discover their unique talents and abilities. With a background in creative arts, they love seeing students light up when they solve a problem in a new way. Jordan believes that learning should be fun, inclusive, and accessible to everyone.", 
-                        location: "Texas, USA"
-                    },
-
-                    {
-                        name: "Priya Malhotra", title: "Success Coach", url:
-                            "../assets/priya.png",
-                        bio: "Priya enjoys mentoring students because she sees education as a bridge to a brighter future. With a love for math and science, she aims to make complex concepts simple and relatable. Her patience and positivity make her a favorite among her students.", 
-                        location: "Mumbai, India"
-                    },
-
-                    {
-                        name: "Marcus Johnson", title: "Success Coach", url: "../assets/marcus.jpg",
-                        bio: "Marcus has dedicated his life to supporting students from underrepresented communities. He believes that every student deserves to feel seen and valued. His approach is all about building confidence and encouraging curiosity.",
-                        location: "Illinois, USA"
-                    },
-
-                    {
-                        name: "Mei Wong", title: "Success Coach", url: "../assets/mei.jpg",
-                        bio: "Mei finds joy in helping students achieve “aha” moments during their learning journey. Her experience as a language tutor has taught her that patience and persistence can unlock any challenge. She is especially passionate about helping students become confident communicators.",
-                        location: "Vancouver, Canada"
-                    },
-
-                    {
-                        name: "Elias Fernandez", title: "Success Coach", url: '../assets/elias.jpg',
-                        bio: "Elias is a former engineer who now focuses on guiding students through STEM subjects. His passion for problem-solving is contagious, and he takes pride in helping students develop a love for science and technology. He believes that critical thinking is a superpower everyone should have.",
-                        location:" Seville, Spain"
-                    },
-
-                    {
-                        name: "Fatima Ahmed", title: "Success Coach", url: "../assets/fatima.jpg",
-                        bio: "Fatima is driven by a love for community and education. She believes every student has potential waiting to be unlocked. Her gentle approach to teaching encourages students to ask questions, make mistakes, and keep going.",
-                        location: "Nairobi, Kenya"
-
-                    },
-
-                
-                ]
-            };
-
-            coaches.portfolio.forEach(card => {
-                addCard( card.name, card.title, card.url, card.bio, card.location);
-            });
-
-        </script>
 </body>
 </html>
