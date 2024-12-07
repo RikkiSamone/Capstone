@@ -1,3 +1,10 @@
+@media (min-width: 992px) {
+    .rounded-lg-3 {
+        border-radius: .3rem;
+    }
+}
+
+
 /* Header/NavBar*/
 .form-control-dark {
     border-color: var(--bs-gray);
@@ -5,20 +12,42 @@
 
 .form-control-dark:focus {
     border-color: #fff;
-    box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
-}
-
-.text-small {
-    font-size: 85%;
+    box-shadow: 0 0 0 .25rem rgba(125, 8, 8, 0.498);
 }
 
 .dropdown-toggle:not(:focus) {
     outline: 0;
 }
+.px-3{
+    background-color:rgba(104, 95, 95, 0.813);
+}
+li {
+    list-style-type: none;
 
-/* Hero Image/Title*/
-@media (min-width: 992px) {
-    .rounded-lg-3 {
-        border-radius: .3rem;
-    }
+}
+
+li:hover{
+    color:#650438;
+    font-weight: 800;
+}
+.home{
+    color:#650438 !important;
+}
+button{
+    background-color: #650438 !important;
+    border-color: white !important;
+    
+}
+
+button:hover{
+    font-size: 25px;
+}
+
+.card-cover:hover{
+background-color:#650438 !important;
+
+}
+
+.text-secondary{
+    color: rgba(247, 231, 231, 0.813) !important;
 }
