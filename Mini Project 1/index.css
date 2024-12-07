@@ -51,3 +51,11 @@ background-color:#650438 !important;
 .text-secondary{
     color: rgba(247, 231, 231, 0.813) !important;
 }
+
+
+/*log-in page*/
+
+body{
+justify-content: center;
+margin-top: 5rem !important;
+}
