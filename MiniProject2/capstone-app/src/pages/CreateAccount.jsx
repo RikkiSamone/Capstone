@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 export default function CreateAccount() {
@@ -17,18 +17,21 @@ export default function CreateAccount() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(null);
-    setSuccess(null);
+  e.preventDefault();
+  setError(null);
+  setSuccess(null);
 
-    try {
-      const response = await axios.post("http://localhost:5001/api/users", formData);
+  try {
+    const response = await axios.post("http://localhost:5001/api/create-account", formData);
+      console.log("Response:", response.data);
       setSuccess("Account created successfully!");
       setFormData({ name: "", email: "", password: "" }); // Reset form
-    } catch (err) {
-      setError(err.response?.data?.error || "An error occurred. Please try again.");
-    }
-  };
+  } catch (err) {
+    console.error("Error:", err.response?.data || err.message);
+    setError(err.response?.data?.error || "An error occurred. Please try again.");
+    setSuccess(null); // Ensure success is cleared
+  }
+};
 
   return (
     <div>

@@ -1,10 +1,14 @@
 const express = require('express');
+const cors = require('cors');
 const dbConnect = require('./dbConnect'); // Import database connection (to ensure it initializes)
 const appointmentRoutes = require('./routes/appointmentRoutes'); // Import the routes file
 const userRoutes = require('./routes/userRoutes'); //Import User Routes
 
 
+
 const app = express();
+
+app.use(cors());
 // Middleware to parse JSON
 app.use(express.json());
 
@@ -20,16 +24,4 @@ app.listen(5001, () => {
 //Default User
 const User = require('./models/users'); // Import User model
 
-(async () => {
-  const existingUser = await User.findOne({ email: 'default@example.com' });
-  if (!existingUser) {
-    const defaultUser = new User({
-    name: 'Default User',
-    email: 'admin@email.com',
-    username: 'admin',
-    password: 'password123',
-    });
-    await defaultUser.save();
-    console.log('Default user created:', defaultUser);
-  }
-})();
+
