@@ -5,38 +5,179 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
 .card {
   padding: 2em;
 }
 
 .read-the-docs {
   color: #888;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #F8F2DC;
+  /* Neutral background */
+  color: #1B282A;
+  /* Dark teal text */
+}
+
+a {
+  color: #08B2E3;
+  /* Bright blue links */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1 {
+padding-top: 1em;
+}
+
+/* General Form Styling */
+form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Fields */
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: #f8f8f8;
+  transition: border-color 0.3s ease;
+}
+
+/* Focus on input fields */
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #08B2E3;
+  /* Accent color on focus */
+  outline: none;
+  background-color: #e9f9ff;
+  /* Light blue background on focus */
+}
+
+/* Input & Label Pairing */
+label {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  color: #1B282A;
+  /* Dark text */
+}
+
+/* Textarea */
+textarea {
+  min-height: 120px;
+  resize: vertical;
+  /* Allow resizing vertically */
+}
+
+/* Submit Button */
+button[type="submit"] {
+  background-color: #5F0F40;
+  /* Primary color */
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+/* Submit Button Hover */
+button[type="submit"]:hover {
+  background-color: #BF8B85;
+  /* Muted pink for hover */
+}
+
+/* Form Validation Messages */
+.error-message {
+  color: #ff4d4d;
+  /* Red for error */
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.success-message {
+  color: #28a745;
+  /* Green for success */
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* Form Wrapper */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+/* Navbar Container */
+.NavBar {
+  background-color: #5F0F40;
+  /* Dark background */
+  padding: 1rem 2rem;
+}
+
+/* Navbar Menu */
+.NavBar .menu {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+/* Navbar List Items */
+.NavBar .menu li {
+  margin: 0 20px;
+  /* Space between menu items */
+}
+
+/* Navbar Links */
+.NavBar .menu li a {
+  text-decoration: none;
+  /* Removes underline from links */
+  color: #F8F2DC;
+  /* Light color for text */
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  padding: 8px 16px;
+  /* Adds padding for a better click area */
+  border-radius: 4px;
+  /* Rounds the corners for a softer look */
+}
+
+/* Navbar Link Hover */
+.NavBar .menu li a:hover {
+  background-color: #BF8B85;
+  /* Darker background on hover */
+}
+
+/* Active Navbar Link */
+.NavBar .menu li a.active {
+  color: #08B2E3;
+  /* Color for active link */
+  font-weight: bold;
+  /* Makes active link bold */
+  background-color: #5F0F40;
+  /* Active background color */
 }
