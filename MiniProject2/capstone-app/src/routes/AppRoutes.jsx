@@ -4,6 +4,7 @@ import PageNotFound from "../pages/PageNotFound";
 import LoginForm from "../components/LogIn/loginForm";
 import DashboardPage from "../components/Dashboard/dashboard";
 import CreateAccount from "../pages/CreateAccount";
+import MeetOurCoaches from "../components/Coaches/coachBios";
 
 function AppRoutes(props) {
 
@@ -15,6 +16,7 @@ return (
 <Route path='/create-account' element={<CreateAccount />} />
 <Route path='/login' element={<LoginForm />} />
 <Route path='/mydashboard' element={<DashboardPage />} />
+                <Route path='/coaches' element={<MeetOurCoaches                        />} / >
 
 
 

@@ -14,6 +14,7 @@ return (
                     <li><NavLink to="/">Home</NavLink></li>
                     <li><NavLink to="/login">Login</NavLink></li>
                     <li><NavLink to="/mydashboard">My Dashboard</NavLink></li>
+                    <li><NavLink to="/coaches">Meet The Coaches</NavLink></li>
                     <li><NavLink to="/create-account">Create An Account</NavLink></li>
             
                    
