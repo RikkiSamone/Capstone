@@ -6,7 +6,6 @@ import { UserContext } from '../../context/userContext';
 function LoginForm() {
     // input state values always need to be strings - empty initially
     const [userEmail, setUserEmail] = useState('');
-    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const { setUser } = useContext(UserContext);
@@ -16,14 +15,14 @@ function LoginForm() {
         e.preventDefault();
         
         //Demo Login
-        const demoUsername = "admin";
+        const demoEmail = "admin@email.com"
         const demoPassword = "password123";
 
-        if (username === demoUsername && password === demoPassword) {
-            setUser({ username }); // Update the user context
-            navigate("/dashboard"); // Redirect to the dashboard
+        if (userEmail === demoEmail && password === demoPassword) {
+            setUser({ userEmail }); // Update the user context
+            navigate("/mydashboard"); // Redirect to the dashboard
         } else {
-            setError("Invalid username or password.");
+            setError("Invalid email or password.");
         }
     };
 
@@ -40,14 +39,7 @@ function LoginForm() {
                         onChange={(e) => setUserEmail(e.target.value)}
                         required />
                 </div>
-                <div>
-                    <label>Username:</label>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required />
-                </div>
+               
                 <div>
                     <label>Password:</label>
                     <input
