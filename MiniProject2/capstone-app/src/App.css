@@ -181,3 +181,8 @@ button[type="submit"]:hover {
   background-color: #5F0F40;
   /* Active background color */
 }
+
+/* Home Page */
+ li{
+  list-style-type: none;
+}

@@ -7,7 +7,7 @@ function LoginForm() {
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { setUser } = useContext(UserContext); // Access UserContext
+  const { login } = useContext(UserContext); // Use login function
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -24,15 +24,15 @@ function LoginForm() {
       // Successful login
       const { user, token } = response.data;
 
-      // Save the user details in context
-      setUser({
+      // Use the login function from context to update authentication state
+      login({
         id: user._id,
         name: user.name,
         email: user.email,
-        token: token, // Optional: You might use this token for authentication
+        token: token,
       });
 
-      // Redirect to the dashboard
+      // Redirect to dashboard
       navigate('/mydashboard');
     } catch (err) {
       // Handle error (e.g., invalid credentials)

@@ -5,7 +5,7 @@ import { StrictMode } from 'react'
 import './index.css'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.bundle.min.js"
-import UserProvider from './context/userContext.jsx'
+import { UserProvider }from './context/userContext.jsx'
 import App from './App.jsx'
 import { ThemeProvider } from './context/themeContext.jsx'
 
