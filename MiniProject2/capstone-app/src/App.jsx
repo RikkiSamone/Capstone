@@ -4,6 +4,7 @@ import { UserProvider } from './context/userContext'
 import AppRoutes from './routes/AppRoutes'
 import NavBar from './components/NavBar/NavBar'
 import { AuthProvider } from './context/auth-context'
+import ProtectedRoute from './components/ProtectedRoute/protectedroute'
 
 function App() {
   
@@ -16,6 +17,8 @@ function App() {
           <AppRoutes></AppRoutes>
         </UserProvider>
         </AuthProvider>
+    
+        
       
     </>
   )

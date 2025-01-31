@@ -1,32 +1,37 @@
-// routes/appointments.js
+// routes/appointmentsRoute.js
 const express = require('express');
 const Appointment = require('../models/appointments');
+const authenticateJWT = require('../middleware/auth'); // Import the auth middleware
 const router = express.Router();
 
 // Create an appointment
-router.post('/book', async (req, res) => {
+router.post('/book', authenticateJWT, async (req, res) => {
   try {
     const newAppointment = new Appointment({
-      userId: req.body.userId, // Get userId from the logged-in user (e.g., JWT)
+      userId: req.user.id, // Assuming you're using JWT for authentication
       coach: req.body.coach,
       date: req.body.date,
       time: req.body.time
     });
-    
-    await newAppointment.save();
-    res.status(201).send(newAppointment);
+
+    // Save the appointment
+    const savedAppointment = await newAppointment.save(); // Now this is valid because the function is async
+    res.status(201).send(savedAppointment); // Send back the created appointment
   } catch (err) {
-    res.status(500).send({ error: err.message });
+    console.error("Error saving appointment:", err);
+    res.status(500).send({ error: "Failed to save appointment." });
   }
 });
-
-// Fetch all appointments for a user
-router.get('/appointments', async (req, res) => {
+    
+// Fetch all appointments for the authenticated user
+router.get('/appointments', authenticateJWT, async (req, res) => {
   try {
-    const appointments = await Appointment.find({ userId: req.body.userId }); // Assuming you're using JWT auth to get user info
-    res.status(200).send(appointments);
+    // Fetch appointments for the logged-in user (using the userId from the JWT)
+    const appointments = await Appointment.find({ userId: req.user.id }); 
+    res.status(200).send(appointments); // Return the user's appointments
   } catch (err) {
-    res.status(500).send({ error: err.message });
+    console.error("Error fetching appointments:", err);
+    res.status(500).send({ error: "Failed to fetch appointments." });
   }
 });
 

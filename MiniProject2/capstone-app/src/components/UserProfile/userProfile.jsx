@@ -1,35 +1,46 @@
-import React, { useContext } from "react";
-import { UserContext } from "../context/UserContext";
+// UserProfile.js
+import React, { useEffect, useState, useContext } from 'react';
+import axios from 'axios';
+import { UserContext } from '../../context/userContext';
 
-function UserProfile() {
-  const { user, setUser } = useContext(UserContext);
+const UserProfile = () => {
+  const { user } = useContext(UserContext); // Get the current user info from context
+  const [appointments, setAppointments] = useState([]);
 
-  const handleLogin = () => {
-    // Simulate logging in
-    setUser({ username: "JohnDoe", email: "johndoe@example.com" });
-  };
+  useEffect(() => {
+    if (user) {
+      const fetchAppointments = async () => {
+        try {
+          const response = await axios.get('http://localhost:5001/api/appointments/appointments', {
+            headers: {
+              Authorization: `Bearer ${user.token}`, // Send the JWT token to fetch the user's appointments
+            },
+          });
 
-  const handleLogout = () => {
-    // Clear the user state
-    setUser(null);
-  };
+          setAppointments(response.data); // Store the fetched appointments in state
+        } catch (error) {
+          console.error('Error fetching appointments:', error);
+        }
+      };
+
+      fetchAppointments(); // Fetch appointments when the component mounts
+    }
+  }, [user]);
 
   return (
     <div>
-      {user ? (
-        <>
-          <h1>Welcome, {user.username}!</h1>
-          <p>Email: {user.email}</p>
-          <button onClick={handleLogout}>Log Out</button>
-        </>
-      ) : (
-        <>
-          <h1>Please log in</h1>
-          <button onClick={handleLogin}>Log In</button>
-        </>
-      )}
+      <h1>Your Appointments</h1>
+      <ul>
+        {appointments.map((appointment) => (
+          <li key={appointment._id}>
+            <p>Coach: {appointment.coach}</p>
+            <p>Date: {appointment.date}</p>
+            <p>Time: {appointment.time}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
 
 export default UserProfile;

@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import axios from "axios";
+import { UserContext } from "../../context/userContext"; // Assuming you have a UserContext to store the user info
 
 const BookAppointmentForm = () => {
-  const { coachName } = useParams(); // Extract coachName from the URL
+  const { user } = useContext(UserContext); // Get user info from context (includes the JWT token)
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    appointmentDate: "",
-    coach: coachName || "", // Auto-populate the coach field with the URL parameter
+    coach: "", // Assuming the coach is pre-filled
+    date: "",
+    time: "",
   });
 
   const handleChange = (e) => {
@@ -15,10 +15,31 @@ const BookAppointmentForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic (e.g., send data to the server)
-    console.log("Form Submitted", formData);
+
+    try {
+      // Send the appointment request to the backend
+      const response = await axios.post(
+        "http://localhost:5001/api/appointments/book", // Update URL accordingly
+        {
+          coach: formData.coach,
+          date: formData.date,
+          time: formData.time,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`, // Send the JWT token in the Authorization header
+          },
+        }
+      );
+
+      console.log("Appointment booked:", response.data);
+      // Handle success (e.g., show confirmation or redirect user)
+    } catch (error) {
+      console.error("Error booking appointment:", error);
+      // Handle error (e.g., show error message)
+    }
   };
 
   return (

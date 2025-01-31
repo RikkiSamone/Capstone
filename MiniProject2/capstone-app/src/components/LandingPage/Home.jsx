@@ -33,7 +33,7 @@ const HomePage = () => {
                         <p>
                             Academic Success Coaching is a personalized, student-centered service designed to help learners develop the skills, strategies, and mindset needed to achieve their academic goals.
                         </p>
-                        <ul classname="homepagelist">
+                        <ul className="homepagelist">
                             <li>Time Management</li>
                             <li>Goal Setting</li>
                             <li>Study Techniques</li>
