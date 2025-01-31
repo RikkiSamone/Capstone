@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const dbConnect = require('./dbConnect'); // Import database connection (to ensure it initializes)
-const appointmentRoutes = require('./routes/appointmentRoutes'); // Import the routes file
-const userRoutes = require('./routes/userRoutes'); //Import User Routes
+const dbConnect = require('./backend/dbConnect'); // Import database connection (to ensure it initializes)
+const appointmentRoutes = require('./backend/routes/appointmentRoutes'); // Import the routes file
+const userRoutes = require('./backend/routes/userRoutes'); //Import User Routes
 
 
 
@@ -22,6 +22,6 @@ app.listen(5001, () => {
 });
 
 //Default User
-const User = require('./models/users'); // Import User model
+const User = require('./backend/models/users'); // Import User model
 
 
