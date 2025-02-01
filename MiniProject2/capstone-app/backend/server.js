@@ -18,7 +18,7 @@ app.use('/api', userRoutes); // This applies all routes defined in userRoutes.js
 dbConnect();
 
 // Get the port from environment variables or default to 5001
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 5001;
 
 // Start the server
 app.listen(PORT, () => {
