@@ -7,11 +7,11 @@ const router = express.Router();
 
 // Create a new user
 router.post('/create-account', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { firstName, lastName, email, password, role } = req.body;;
   console.log('POST /create-account route was hit'); // Log when the route is accessed
   console.log('Request body:', req.body); // Log the data sent in the request
   
-  if (!name || !email || !password) {
+  if (!firstName || !lastName|| !email || !password) {
     return res.status(400).json({ error: 'All fields are required' });
   }
 
@@ -26,10 +26,10 @@ router.post('/create-account', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
 
     // Create the user with hashed password
-    const newUser = new User({ name, email, password: hashedPassword });
+    const newUser = new User({ firstName, lastName, email, password: hashedPassword, role });
     await newUser.save();
 
-    res.status(201).json({ message: 'User created successfully', user: newUser });
+    res.status(201).json({ message: 'Account created successfully', user: newUser });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

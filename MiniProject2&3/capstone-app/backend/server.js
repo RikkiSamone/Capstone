@@ -12,7 +12,7 @@ app.use(express.json());
 
 // Use the routes from routes.js
 app.use('/api', appointmentRoutes); // This applies all routes defined in appointmentRoutes.js
-app.use('/api', userRoutes); // This applies all routes defined in userRoutes.js
+app.use('/api/users', userRoutes); // This applies all routes defined in userRoutes.js
 
 // Initialize the database connection
 dbConnect();

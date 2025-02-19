@@ -7,6 +7,10 @@ import CreateAccount from "../pages/CreateAccount";
 import MeetOurCoaches from "../components/Coaches/coachBios";
 import BookingForm from "../components/Dashboard/bookingform";
 import ProtectedRoute from "../components/ProtectedRoute/protectedroute";
+import CoachAvailabilityForm from "../components/CoachAvailability/CoachAvailability";
+import CoachCalendar from "../components/CoachCalendar/CoachCalendar";
+import CoachAdminPage from "../pages/CoachAdminPage";
+import CoachLogin from "../components/CoachLogIn/CoachLogin";
 
 function AppRoutes(props) {
 
@@ -19,6 +23,12 @@ return (
 <Route path='/login' element={<LoginForm />} />
 <Route path='/book-appointment/:coachName' element={<BookingForm />} />
 <Route path='/book-appointment' element={<BookingForm />} />
+
+{/*Coach Interface */}
+<Route path="/admin" component={CoachAdminPage} />
+<Route path="/coach-login" component={CoachLogin} />      
+<Route path='/coach-availability' element={<CoachAvailabilityForm />} />
+<Route path='/coach-calendar' element={<CoachCalendar />} />
 
 {/* Protected Routes */}
 <Route path='/mydashboard' element={<ProtectedRoute element={<DashboardPage />} />} />
