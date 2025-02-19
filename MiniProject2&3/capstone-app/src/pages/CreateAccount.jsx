@@ -13,7 +13,7 @@ const CreateAccount = () => {
     e.preventDefault();
  console.log("Form submitted");
     try {
-      const response = await axios.post("http://localhost:5000/api/users/create-account", {
+      const response = await axios.post("http://localhost:5001/api/users/create-account", {
         firstName,
         lastName,
         email,
