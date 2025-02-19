@@ -1,0 +1,48 @@
+// src/pages/CoachAdminPage.jsx
+import React, { useState } from "react";
+import { useCoachAdmin } from "../context/coachAdminContext.jsx; // Import the hook
+
+const CoachAdminPage = () => {
+  const { coachId, loginCoach } = useCoachAdmin(); // Get the coach's data and function
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    // Example logic to log in a coach (e.g., from a backend API)
+    const coachData = { coachId: "12345", email }; // Fake coach data for demo
+
+    // Call the loginCoach function from the context
+    loginCoach(coachData);
+  };
+
+  return (
+    <div>
+      <h1>Coach Admin Page</h1>
+      {coachId ? (
+        <div>Welcome Coach {coachId}</div> // Display the coach ID after login
+      ) : (
+        <form onSubmit={handleLogin}>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter email"
+            required
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter password"
+            required
+          />
+          <button type="submit">Login as Coach</button>
+        </form>
+      )}
+    </div>
+  );
+};
+
+export default CoachAdminPage;
