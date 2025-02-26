@@ -10,7 +10,8 @@ import ProtectedRoute from "../components/ProtectedRoute/protectedroute";
 import CoachAvailabilityForm from "../components/CoachAvailability/CoachAvailability";
 import CoachCalendar from "../components/CoachCalendar/CoachCalendar";
 import CoachAdminPage from "../pages/CoachAdminPage";
-import CoachLogin from "../components/CoachLogIn/CoachLogin";
+import CoachLogin from "../components/CoachLogIn/CoachLogin"; 
+import Dashboard from "../pages/Dashboard";
 
 function AppRoutes(props) {
 
@@ -29,9 +30,10 @@ return (
 <Route path="/coach-login" component={CoachLogin} />      
 <Route path='/coach-availability' element={<CoachAvailabilityForm />} />
 <Route path='/coach-calendar' element={<CoachCalendar />} />
+<Route path='/dashboard' element={<Dashboard />} />
 
 {/* Protected Routes */}
-<Route path='/mydashboard' element={<ProtectedRoute element={<DashboardPage />} />} />
+<Route path='/mydashboard' element={<DashboardPage />} />}
 <Route path='/coaches' element={<ProtectedRoute element={<MeetOurCoaches />} />} />
 {/* special route to handle if none of the above match */}
 <Route path="*" element={<PageNotFound />} />
