@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   lastName: { type: String, required: true },
   email: { type: String, trim: true, required: true, unique: true },
   password: { type: String, required: true }, // Ideally hashed
-  role: { type: String, enum: ["client", "coach"], required: true, default: "client",}, //distinguishes user/client from coach/admin
+  role: { type: String, enum: ["client", "coach"], required: true, default: "client"}, //distinguishes user/client from coach/admin
   createdAt: { type: Date, default: Date.now },
 });
 

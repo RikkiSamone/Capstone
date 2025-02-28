@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "../components/LandingPage/Home";
 import PageNotFound from "../pages/PageNotFound";
 import LoginForm from "../components/LogIn/loginForm";
-import DashboardPage from "../components/Dashboard/dashboard";
 import CreateAccount from "../pages/CreateAccount";
 import MeetOurCoaches from "../components/Coaches/coachBios";
 import BookingForm from "../components/Dashboard/bookingform";
@@ -11,7 +10,8 @@ import CoachAvailabilityForm from "../components/CoachAvailability/CoachAvailabi
 import CoachCalendar from "../components/CoachCalendar/CoachCalendar";
 import CoachAdminPage from "../pages/CoachAdminPage";
 import CoachLogin from "../components/CoachLogIn/CoachLogin"; 
-import Dashboard from "../pages/Dashboard";
+import DashboardPage from "../components/Dashboard/dashboard";
+
 
 function AppRoutes(props) {
 
@@ -30,11 +30,12 @@ return (
 <Route path="/coach-login" component={CoachLogin} />      
 <Route path='/coach-availability' element={<CoachAvailabilityForm />} />
 <Route path='/coach-calendar' element={<CoachCalendar />} />
-<Route path='/dashboard' element={<Dashboard />} />
+
 
 {/* Protected Routes */}
-<Route path='/mydashboard' element={<DashboardPage />} />}
 <Route path='/coaches' element={<ProtectedRoute element={<MeetOurCoaches />} />} />
+<Route path='/mydashboard' element={<ProtectedRoute element={<DashboardPage />} />} />
+
 {/* special route to handle if none of the above match */}
 <Route path="*" element={<PageNotFound />} />
 

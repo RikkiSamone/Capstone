@@ -1,38 +1,22 @@
+// routes/userRoutes.js
 const express = require('express');
-const User = require('../models/users'); // Import the User model
-const bcrypt = require('bcryptjs'); // For hashing passwords
-const jwt = require('jsonwebtoken'); // For generating tokens
+const createUser = require('../controllers/createUser');
+const getUser = require('../controllers/getUser');
+const updateUser = require('../controllers/updateUser');
+const deleteUser = require('../controllers/deleteUser');
 
 const router = express.Router();
 
-// Create a new user
-router.post('/create-account', async (req, res) => {
-  const { firstName, lastName, email, password, role } = req.body;
-  console.log('POST /create-account route was hit'); // Log when the route is accessed
-  console.log('Request body:', req.body); // Log the data sent in the request
-  
-  if (!firstName || !lastName || !email || !password || !role) {
-    return res.status(400).json({ error: 'All fields are required' });
-  }
+// Route for creating a user
+router.post('/create-account', createUser);
 
-  try {
-    // Check if the email already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ error: 'Email already exists' });
-    }
+// Route for getting a user
+router.get('/search/:email', getUser);
 
-    // Hash the password before saving the user
-    const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
+// Route for updating a user
+router.put('/update-user', updateUser);
 
-    // Create the user with hashed password
-    const newUser = new User({ firstName, lastName, email, password: hashedPassword, role });
-    await newUser.save();
-
-    res.status(201).json({ message: 'Account created successfully', user: newUser });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
+// Route for deleting a user
+router.delete('/delete-user/:email', deleteUser);
 
 module.exports = router;
