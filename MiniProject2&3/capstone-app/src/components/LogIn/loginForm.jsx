@@ -7,36 +7,35 @@ function LoginForm() {
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { setUser, setToken, setIsAuthenticated } = useContext(UserContext);
   const { login } = useContext(UserContext); // Use login function
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(''); // Clear any previous errors
+   
 
     try {
       // Send login request to the backend
-      const response = await axios.post('http://localhost:5001/api/login', {
-        email: userEmail,
-        password: password,
+      const response = await axios.post('http://localhost:5001/api/auth/login', {
+        userEmail,
+        password,
       });
+      console.log("login successful:", response.data);
 
       // Successful login
       const { user, token } = response.data;
+      if (token) {
+        setUser(user);  // Set the user info
+        setToken(token); // Store token for API requests
+        setIsAuthenticated(true); // Update UI state
 
-      // Use the login function from context to update authentication state
-      login({
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        token: token,
-      });
-
-      // Redirect to dashboard
-      navigate('/mydashboard');
+        // Redirect to dashboard
+        navigate("/dashboard");
+      }
     } catch (err) {
-      // Handle error (e.g., invalid credentials)
-      setError(err.response?.data?.error || 'Failed to log in. Please try again.');
+      setError("Invalid email or password.");
+      console.error("Login error:", err);
     }
   };
 
