@@ -1,4 +1,4 @@
-const User = require('../models/users');
+const User = require('../../models/users');
 
 // Delete a user by Email
   const deleteUser = async (req, res) => {

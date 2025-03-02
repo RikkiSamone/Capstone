@@ -1,5 +1,5 @@
 const express = require('express');
-const User = require('../models/users'); // Import the User model
+const User = require('../../models/users'); // Import the User model
 const bcrypt = require('bcryptjs'); // For hashing passwords
 const jwt = require('jsonwebtoken'); // For generating tokens
 
@@ -22,7 +22,7 @@ const createUser = async (req, res) => {
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-
+    console.log('Hashed Password:', hashedPassword);
     // Create and save the new user
     const newUser = new User({ firstName, lastName, email, password: hashedPassword, role });
     await newUser.save();

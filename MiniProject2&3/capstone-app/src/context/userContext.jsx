@@ -20,6 +20,14 @@ export const UserProvider = ({ children }) => {
     }
   }, [token]);
 
+// Login function
+  const login = (user, token) => {
+    setUser(user); // Set user data after successful login
+    setToken(token); // Set token received from login
+    setIsAuthenticated(true); // Update authentication status
+    localStorage.setItem("token", token); // Store token in localStorage
+  };
+
   // Logout function
   const logout = () => {
     setUser(null);
@@ -29,7 +37,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser, token, setToken, isAuthenticated, setIsAuthenticated, logout }}>
+    <UserContext.Provider value={{ user, setUser, token, setToken, isAuthenticated, setIsAuthenticated, login, logout }}>
       {children}
     </UserContext.Provider>
   );

@@ -4,33 +4,42 @@ import axios from 'axios';
 import { UserContext } from '../../context/userContext';
 
 function LoginForm() {
-  const [userEmail, setUserEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { login } = useContext(UserContext);
   const { setUser, setToken, setIsAuthenticated } = useContext(UserContext);
-  const { login } = useContext(UserContext); // Use login function
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-   
+    console.log("Logging in with:", { email, password });
 
     try {
       // Send login request to the backend
-      const response = await axios.post('http://localhost:5001/api/auth/login', {
-        userEmail,
-        password,
-      });
-      console.log("login successful:", response.data);
+     const response = await axios.post(
+  'http://localhost:5001/api/auth/login', 
+  {
+    email,  // Corrected email name
+    password,
+  },
+  {
+    headers: {
+      'Content-Type': 'application/json', // Add this header
+    },
+  }
+);
+
+      console.log("Login successful:", response.data);
 
       // Successful login
       const { user, token } = response.data;
-      if (token) {
-        setUser(user);  // Set the user info
-        setToken(token); // Store token for API requests
-        setIsAuthenticated(true); // Update UI state
+      login(user, token);
 
-        // Redirect to dashboard
+      if (token) {
+        setUser(user);
+        setToken(token);
+        setIsAuthenticated(true);
         navigate("/dashboard");
       }
     } catch (err) {
@@ -47,9 +56,9 @@ function LoginForm() {
           <label>Email Address:</label>
           <input
             type="email"
-            value={userEmail}
-            name="userEmail"
-            onChange={(e) => setUserEmail(e.target.value)}
+            value={email}
+            name="email" // Make sure this matches the backend expected field
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>

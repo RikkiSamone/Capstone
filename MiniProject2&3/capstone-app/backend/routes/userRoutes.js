@@ -1,9 +1,9 @@
 // routes/userRoutes.js
 const express = require('express');
-const createUser = require('../controllers/createUser');
-const getUser = require('../controllers/getUser');
-const updateUser = require('../controllers/updateUser');
-const deleteUser = require('../controllers/deleteUser');
+const createUser = require('../controllers/Users/createUser');
+const getUser = require('../controllers/Users/getUser');
+const updateUser = require('../controllers/Users/updateUser');
+const deleteUser = require('../controllers/Users/deleteUser');
 
 const router = express.Router();
 

@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const cors = require('cors');
 const dbConnect = require('./dbConnect'); // Import database connection (to ensure it initializes)
 const appointmentRoutes = require('./routes/appointmentRoutes'); // Import the routes file
@@ -10,6 +10,7 @@ const app = express();
 app.use(cors());
 // Middleware to parse JSON
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); 
 
 // Use the routes from routes.js
 app.use('/api', appointmentRoutes); // This applies all routes defined in appointmentRoutes.js
