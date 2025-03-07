@@ -18,7 +18,7 @@ function LoginForm() {
     try {
       // Send login request to the backend
      const response = await axios.post(
-  'http://localhost:5001/api/auth/login', 
+  'http://localhost:5001/api/users/login', 
   {
     email,  // Corrected email name
     password,

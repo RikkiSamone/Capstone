@@ -1,7 +1,7 @@
 // testHash.js
 const bcrypt = require('bcryptjs');
 
-const testPassword = 'logintest1';  // The password you want to test
+const testPassword = 'testthousand';  // The password you want to test
 
 // Simulate creating a salt and hashing the password
 async function testSaltAndHash() {
