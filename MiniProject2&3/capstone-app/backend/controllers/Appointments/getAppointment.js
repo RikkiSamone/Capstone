@@ -1,12 +1,15 @@
 const Appointment = require('../../models/appointments');
 
-
-// Get all appointments
+// Get all unbooked appointments
 const getAllAppointments = async (req, res) => {
     try {
-        const appointments = await Appointment.find().populate('userId', 'firstName lastName email');
+        const appointments = await Appointment.find({ userId: null }) // Fetch only unbooked slots
+            .populate('coachId', 'firstName lastName') // Populate coach's name
+            .exec();
+        
         res.status(200).json(appointments);
     } catch (error) {
+        console.error("Error fetching appointments:", error);
         res.status(500).json({ error: 'Server error', details: error.message });
     }
 };
@@ -15,20 +18,30 @@ const getAllAppointments = async (req, res) => {
 const getAppointmentsByUser = async (req, res) => {
     try {
         const { userId } = req.params;
-        const appointments = await Appointment.find({ userId }).populate('userId', 'firstName lastName email');
+        const appointments = await Appointment.find({ userId }).populate('userId', 'firstName lastName');
+    
+        // If no appointments found, send an appropriate message
+        if (appointments.length === 0) {
+            return res.status(404).json({ message: 'No appointments found for this user.' });
+        }
+
+        // Return the appointments
         res.status(200).json(appointments);
     } catch (error) {
+        console.error('Error fetching appointments:', error);
         res.status(500).json({ error: 'Server error', details: error.message });
     }
 };
 
-// Get appointments by coach name
+// Get appointments by coach ID
 const getAppointmentsByCoach = async (req, res) => {
     try {
         const { coach } = req.params;
-        const appointments = await Appointment.find({ coach });
+        const appointments = await Appointment.find({ coachId: coach }).populate('userId', 'firstName lastName');
+
         res.status(200).json(appointments);
     } catch (error) {
+        console.error('Error fetching appointments:', error);
         res.status(500).json({ error: 'Server error', details: error.message });
     }
 };
@@ -47,6 +60,7 @@ const getAppointmentsByDate = async (req, res) => {
 
         res.status(200).json(appointments);
     } catch (error) {
+        console.error('Error fetching appointments:', error);
         res.status(500).json({ error: 'Server error', details: error.message });
     }
 };
