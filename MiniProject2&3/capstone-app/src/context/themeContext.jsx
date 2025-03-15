@@ -3,11 +3,11 @@ import React, { createContext, useState, useContext } from "react";
 // Step 1: Create theme objects
 const theme = {
   colors: {
-    background: "#F8F2DC", // Soft neutral for the app's background
-    primary: "#5F0F40",    // Deep purple for primary elements (buttons, headers, etc.)
-    secondary: "#BF8B85",  // Muted pink for secondary highlights
-    accent: "#08B2E3",     // Bright blue for accents (links, call-to-action buttons, etc.)
-    text: "#1B282A",       // Dark teal for text
+    background: "#F9FAFB", // Soft neutral for the app's background
+    primary: "#FFDD4C",    // Deep purple for primary elements (buttons, headers, etc.)
+    secondary: "#D1D5DB",  // Muted pink for secondary highlights
+    accent: "#FE9A9A",     // Bright blue for accents (links, call-to-action buttons, etc.)
+    text: "#127334B",       // Dark teal for text
   },
 };
 
@@ -18,11 +18,11 @@ const ThemeContext = createContext();
 // Define the default theme
 const defaultTheme = {
   colors: {
-    background: "#F8F2DC", // Soft neutral
-    primary: "#5F0F40",    // Deep purple
-    secondary: "#BF8B85",  // Muted pink
-    accent: "#08B2E3",     // Bright blue
-    text: "#1B282A",       // Dark teal
+    background: "#F9FAFB", // Soft neutral for the app's background
+    primary: "#FFDD4C",    // Deep purple for primary elements (buttons, headers, etc.)
+    secondary: "#D1D5DB",  // Muted pink for secondary highlights
+    accent: "#FE9A9A",     // Bright blue for accents (links, call-to-action buttons, etc.)
+    text: "#127334B", 
   },
 };
 

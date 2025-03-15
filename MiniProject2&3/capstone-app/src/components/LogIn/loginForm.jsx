@@ -1,44 +1,33 @@
-import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { UserContext } from '../../context/userContext';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/auth-context"; // Use the updated AuthContext
 
 function LoginForm() {
-  const [userEmail, setUserEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const { login } = useContext(UserContext); // Use login function
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { login, isAuthenticated } = useAuth(); // Get both login and isAuthenticated from context
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(''); // Clear any previous errors
+    console.log("Logging in with:", { email, password });
 
-    try {
-      // Send login request to the backend
-      const response = await axios.post('http://localhost:5001/api/login', {
-        email: userEmail,
-        password: password,
-      });
-
-      // Successful login
-      const { user, token } = response.data;
-
-      // Use the login function from context to update authentication state
-      login({
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        token: token,
-      });
-
-      // Redirect to dashboard
-      navigate('/mydashboard');
+  try {
+      await login(email, password); // Calls the login function in AuthContext
     } catch (err) {
-      // Handle error (e.g., invalid credentials)
-      setError(err.response?.data?.error || 'Failed to log in. Please try again.');
+      setError("Invalid email or password.");
+      console.error("Login error:", err);
     }
   };
+
+  // Watch for authentication changes
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/mydashboard"); // Navigate to dashboard when user is authenticated
+    }
+  }, [isAuthenticated, navigate]); // Dependency on isAuthenticated
+  
 
   return (
     <div className="login page">
@@ -48,9 +37,9 @@ function LoginForm() {
           <label>Email Address:</label>
           <input
             type="email"
-            value={userEmail}
-            name="userEmail"
-            onChange={(e) => setUserEmail(e.target.value)}
+            value={email}
+            name="email"
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
@@ -66,7 +55,7 @@ function LoginForm() {
         </div>
 
         <button type="submit">Log In</button>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
     </div>
   );

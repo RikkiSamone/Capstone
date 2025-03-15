@@ -1,38 +1,33 @@
+// routes/userRoutes.js
 const express = require('express');
-const User = require('../models/users'); // Import the User model
-const bcrypt = require('bcryptjs'); // For hashing passwords
-const jwt = require('jsonwebtoken'); // For generating tokens
+const { createUser } = require('../controllers/Users/createUser');
+const login = require('../controllers/Users/loginUser')
+const searchUser = require('../controllers/Users/getUser');
+const updateUser = require('../controllers/Users/updateUser');
+const deleteUser = require('../controllers/Users/deleteUser');
+const authenticateJWT = require('../middleware/auth');
 
 const router = express.Router();
 
-// Create a new user
-router.post('/create-account', async (req, res) => {
-  const { firstName, lastName, email, password, role } = req.body;
-  console.log('POST /create-account route was hit'); // Log when the route is accessed
-  console.log('Request body:', req.body); // Log the data sent in the request
-  
-  if (!firstName || !lastName || !email || !password || !role) {
-    return res.status(400).json({ error: 'All fields are required' });
-  }
+// Route for creating a user
+router.post('/create-account', createUser);
 
-  try {
-    // Check if the email already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ error: 'Email already exists' });
-    }
+//Route for login
+router.post('/login', login);
 
-    // Hash the password before saving the user
-    const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
+// Route for getting a user
+router.get('/search/:email', searchUser);
 
-    // Create the user with hashed password
-    const newUser = new User({ firstName, lastName, email, password: hashedPassword, role });
-    await newUser.save();
+// Route for updating a user
+router.put('/update-user', updateUser);
 
-    res.status(201).json({ message: 'Account created successfully', user: newUser });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+// Route for deleting a user
+router.delete('/delete-user/:email', deleteUser);
+
+// Route for getting the currently authenticated user
+router.get('/me', authenticateJWT, (req, res) => {
+  // Assuming the token is validated and user info is added to the request object
+  res.json(req.user);  // Send back the user data from the token
 });
 
 module.exports = router;

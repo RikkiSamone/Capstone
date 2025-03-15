@@ -1,38 +1,25 @@
 // routes/appointmentsRoute.js
 const express = require('express');
-const Appointment = require('../models/appointments');
+const { createAppointment, getAvailableSlotsByDate } = require('../controllers/Appointments/createAppointment');
+const { getAllAppointments,
+        getAppointmentsByCoach,
+        getAppointmentsByUser,
+        getAppointmentsByDate } = require('../controllers/Appointments/getAppointment') 
+const updateAppointment = require('../controllers/Appointments/updateAppointment');
+const cancelAppointment = require('../controllers/Appointments/cancelAppointment');
 const authenticateJWT = require('../middleware/auth'); // Import the auth middleware
+
 const router = express.Router();
 
-// Create an appointment
-router.post('/book', authenticateJWT, async (req, res) => {
-  try {
-    const newAppointment = new Appointment({
-      userId: req.user.id, // Assuming you're using JWT for authentication
-      coach: req.body.coach,
-      date: req.body.date,
-      time: req.body.time
-    });
+router.post('/book', authenticateJWT, createAppointment); //Protected for logged in users can only create appointments
+router.get('/all-appointments', authenticateJWT, getAllAppointments);
+router.get('/available-slots', getAvailableSlotsByDate); // Get available slots by date
+router.get('/user/:userId', authenticateJWT, getAppointmentsByUser); 
+router.get('/coach/:coach', authenticateJWT, getAppointmentsByCoach);
+router.get('/date/:date', authenticateJWT, getAppointmentsByDate);
+router.put('/update/:id', authenticateJWT, updateAppointment);
+router.delete('/cancel/:id', authenticateJWT, cancelAppointment);
 
-    // Save the appointment
-    const savedAppointment = await newAppointment.save(); // Now this is valid because the function is async
-    res.status(201).send(savedAppointment); // Send back the created appointment
-  } catch (err) {
-    console.error("Error saving appointment:", err);
-    res.status(500).send({ error: "Failed to save appointment." });
-  }
-});
-    
-// Fetch all appointments for the authenticated user
-router.get('/appointments', authenticateJWT, async (req, res) => {
-  try {
-    // Fetch appointments for the logged-in user (using the userId from the JWT)
-    const appointments = await Appointment.find({ userId: req.user.id }); 
-    res.status(200).send(appointments); // Return the user's appointments
-  } catch (err) {
-    console.error("Error fetching appointments:", err);
-    res.status(500).send({ error: "Failed to fetch appointments." });
-  }
-});
+
 
 module.exports = router;

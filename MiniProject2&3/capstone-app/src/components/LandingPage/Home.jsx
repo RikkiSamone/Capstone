@@ -1,86 +1,96 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Button, Container, Typography, Box, Grid, TextField, Avatar } from "@mui/material";
 
 const HomePage = () => {
     return (
-        <div>
+        <Container>
+            <Box 
+                textAlign="center" 
+                my={4} 
+                sx={{ paddingLeft: "250px" }} // Added padding for the left nav bar
+            >
+                <Typography variant="h1" gutterBottom>
+                    Academic Allies
+                </Typography>
+                <Typography variant="h5" paragraph>
+                    At Academic Allies, we’re more than just coaches — we’re your partners in progress and your allies in achievement.
+                </Typography>
+                <Typography variant="h6" paragraph>
+                    Our mission is to empower students from 9th grade through college with the tools, strategies, and confidence to conquer academic challenges and achieve lasting success.
+                </Typography>
+                <Box>
+                    <Button variant="contained" component={Link} to="/login" sx={{ mx: 1 }}>
+                        Login
+                    </Button>
+                    <Button variant="outlined" component={Link} to="/create-account" sx={{ mx: 1 }}>
+                        Create An Account
+                    </Button>
+                </Box>
+            </Box>
 
-            <div>
-                <div>
-                    <div>
-                        <h1>Academic Allies</h1>
-                        <p className="lead">
-                            At Academic Allies, we’re more than just coaches — we’re your partners in progress and your allies in achievement.
-                            Our mission is to empower students from 9th grade through college with the tools, strategies, and confidence to conquer academic challenges and achieve lasting success.
-                        </p>
-                        <p className="lead">
-                            At Academic Allies, we believe that every student deserves a champion in their corner — and we’re here to be just that.
-                            Our approach goes beyond grades, fostering a love of learning, resilience, and a growth mindset that lasts a lifetime.
-                        </p>
-                        <h4>Let Academic Allies be Yours!</h4>
-                        <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-              <Link to="/login" className="btn btn-primary btn-lg px-4 gap-3">Login</Link>
-              <Link to="/create-account" className="btn btn-outline-secondary btn-lg px-4">Create An Account</Link>
-            </div>
-                    </div>
-                </div>
-            </div>
+        <Box my={4} sx={{ paddingLeft: "250px" }} textAlign="center">
+                <Typography variant="h4" textAlign="center" gutterBottom>
+                    What is Academic Success Coaching?
+                </Typography>
+                <Typography variant="body1" paragraph>
+                    Academic Success Coaching is a personalized, student-centered service designed to help learners develop the skills, strategies, and mindset needed to achieve their academic goals.
+                </Typography>
 
-            <div className="about-container">
-                <div>
-                    <h1>What is Academic Success Coaching?</h1>
-                    <div>
-                        <p>
-                            Academic Success Coaching is a personalized, student-centered service designed to help learners develop the skills, strategies, and mindset needed to achieve their academic goals.
-                        </p>
-                        <ul className="homepagelist">
-                            <li>Time Management</li>
-                            <li>Goal Setting</li>
-                            <li>Study Techniques</li>
-                            <li>Motivation & Accountability</li>
-                            <li>Stress Management</li>
-                            <li>& More</li>
-                        </ul>
-                        <p>
-                            Success coaches act as mentors and partners in a student’s educational journey. They work with students to identify obstacles, build confidence, and create personalized action plans for improvement.
-                        </p>
-                        <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-              <Link to="/coaches" className="btn btn-primary btn-lg px-4 gap-3">Meet Our Coaches</Link>
-              <Link to="/book-appointment" className="btn btn-primary btn-lg px-4">Book An Appointment</Link>
-            </div>
-                    </div>
-                </div>
-            </div>
+                <Grid container spacing={2} justifyContent="center">
+                    {["Time Management", "Goal Setting", "Study Techniques", "Motivation & Accountability", "Stress Management"].map(
+                        (item) => (
+                            <Grid item key={item} xs={12} sm={6} md={4}>
+                                <Avatar
+                                    sx={{
+                                        bgcolor: "primary.main",
+                                        width: 60,
+                                        height: 60,
+                                        margin: "auto",
+                                        mb: 2,
+                                    }}
+                                    >
+                            {/*<img
+                                        src="path/to/your/image.jpg" 
+                                        alt={item}
+                                        style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}
+                                      />*/}
+                                    <Typography variant="h6" color="white">
+                                        {item[0]}
+                                    </Typography>
+                                </Avatar>
+                                <Typography variant="h6">{item}</Typography>
+                            </Grid>
+                        )
+                    )}
+                </Grid>
 
-            <div>
-                <div>
-                    <div>
-                        <h1 >Our Services</h1>
-                        <h3>Supporting YOU from Freshman to University Senior</h3>
-                        <p className="lead">We serve students from 9th grade to University. Students can book 1:1 or group appointments with our Success Coaches. We also provide tutoring for select subjects. All appointments are held online.</p>
-                    </div>
-                </div>
-            </div>
+                <Box textAlign="center" mt={3}>
+                    <Button variant="contained" component={Link} to="/coaches" sx={{ mx: 1 }}>
+                        Meet Our Coaches
+                    </Button>
+                    <Button
+                        variant="contained"
+                        href="https://www.instagram.com/rikkisamone" // Replace with your Instagram URL
+                        target="_blank" // This will open the link in a new tab
+                        rel="noopener noreferrer" // Security feature for opening external links in a new tab
+                        sx={{ mx: 1 }}
+                      >
+                        Follow Us!
+                      </Button>
+                </Box>
+            </Box>
 
-            <footer className="py-5">
-                <div className="row">
-                    <div>
-                        <form>
-                            <h5>Subscribe to our newsletter</h5>
-                            <p>Monthly digest of what's new and exciting from us.</p>
-                            <div className="d-flex flex-column flex-sm-row w-100 gap-2">
-                                <label htmlFor="newsletter1" className="visually-hidden">Email address</label>
-                                <input id="newsletter1" type="text" className="form-control" placeholder="Email address" />
-                                <button className="btn btn-primary" type="button">Subscribe</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div className="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-                    <p>© 2024 Company, Inc. All rights reserved.</p>
-                </div>
-            </footer>
-        </div>
+            {/* Footer */}
+            <Box mt={6} py={3} sx={{ paddingLeft: "250px" }} bgcolor="grey.200" textAlign="center">
+                <Typography variant="h6">Subscribe to our newsletter</Typography>
+                <TextField label="Email address" variant="outlined" sx={{ mt: 1, mb: 1, width: "300px" }} />
+                <Button variant="contained">Subscribe</Button>
+                <Typography variant="body2" mt={3}>
+                    © 2024-2025 Academic Allies, Inc. All rights reserved.
+                </Typography>
+            </Box>
+        </Container>
     );
 };
 

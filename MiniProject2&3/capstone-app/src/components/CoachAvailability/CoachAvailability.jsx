@@ -1,63 +1,91 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
+import axios from "axios";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";  // Calendar styles
+import { Box, Button, Typography, TextField } from '@mui/material';
 
-const CoachAvailabilityForm = ({ coachId }) => {
-  const [date, setDate] = useState("");
-  const [timeSlots, setTimeSlots] = useState([{ start: "", end: "" }]);
+const CoachAvailabilityForm = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [timeSlots, setTimeSlots] = useState([]);
+  const [newTimeSlot, setNewTimeSlot] = useState("");
 
-  const handleSlotChange = (index, field, value) => {
-    const updatedSlots = [...timeSlots];
-    updatedSlots[index][field] = value;
-    setTimeSlots(updatedSlots);
+  // Update selected date from calendar
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
   };
 
-  const addTimeSlot = () => {
-    setTimeSlots([...timeSlots, { start: "", end: "" }]);
+  // Add new time slot
+  const handleAddTimeSlot = () => {
+    if (newTimeSlot && !timeSlots.includes(newTimeSlot)) {
+      setTimeSlots([...timeSlots, newTimeSlot]);
+      setNewTimeSlot(""); // Clear input field after adding
+    } else {
+      alert("Please enter a valid time or avoid duplicates.");
+    }
   };
 
+  // Submit availability to backend
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("/api/coachAvailability", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ coachId, date, timeSlots }),
-    });
+    if (timeSlots.length === 0) {
+      alert("Please add at least one time slot.");
+      return;
+    }
 
-    if (response.ok) {
-      alert("Availability added successfully!");
-      setDate("");
-      setTimeSlots([{ start: "", end: "" }]);
-    } else {
-      alert("Error adding availability.");
+    try {
+      const response = await axios.post("http://localhost:5001/api/availability/create", {
+        coachId: "coachId_here",  // Replace with actual coach ID
+        date: selectedDate,
+        timeSlots,
+      });
+      alert("Availability created!");
+      setTimeSlots([]); // Reset time slots after successful submission
+    } catch (error) {
+      alert("Failed to create availability.");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h3>Add Availability</h3>
-      <label>
-        Select Date:
-        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
-      </label>
+    <Box sx={{ margin: "0 20px", maxWidth: 600 }}>
+      <Typography variant="h5" gutterBottom>
+        Set Your Availability
+      </Typography>
 
-      {timeSlots.map((slot, index) => (
-        <div key={index}>
-          <label>Start Time:</label>
-          <input type="time" value={slot.start} onChange={(e) => handleSlotChange(index, "start", e.target.value)} required />
+      <form onSubmit={handleSubmit}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          <Typography variant="body1">Select Date</Typography>
+          <Calendar
+            onChange={handleDateChange}
+            value={selectedDate}
+          />
 
-          <label>End Time:</label>
-          <input type="time" value={slot.end} onChange={(e) => handleSlotChange(index, "end", e.target.value)} required />
-        </div>
-      ))}
+          <TextField
+            label="Enter Time Slot (e.g., 10:00 AM)"
+            type="text"
+            value={newTimeSlot}
+            onChange={(e) => setNewTimeSlot(e.target.value)}
+            fullWidth
+          />
+          <Button onClick={handleAddTimeSlot} variant="outlined">
+            Add Time Slot
+          </Button>
 
-      <button type="button" onClick={addTimeSlot}>+ Add Time Slot</button>
-      <button type="submit">Submit Availability</button>
-    </form>
+          <Box sx={{ marginTop: 2 }}>
+            <Typography variant="body1">Time Slots:</Typography>
+            <ul>
+              {timeSlots.map((slot, index) => (
+                <li key={index}>{slot}</li>
+              ))}
+            </ul>
+          </Box>
+
+          <Button type="submit" variant="contained" fullWidth>
+            Submit Availability
+          </Button>
+        </Box>
+      </form>
+    </Box>
   );
-};
-
-CoachAvailabilityForm.PropTypes = {
-    coachId: PropTypes.string.isRequired
 };
 
 export default CoachAvailabilityForm;
