@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom"; // import useNavigate
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton } from "@mui/material";
 import { Home, AccountBox, Book, People, ExitToApp, AccountCircle, AddCircle } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
@@ -7,6 +7,19 @@ import { useTheme } from "@mui/material/styles";
 export default function NavBar() {
   const theme = useTheme();
   const [open, setOpen] = useState(true); // Controls the open/close state of the Drawer
+  const navigate = useNavigate(); // Initialize the useNavigate hook
+
+  // Logout function
+  const handleLogout = () => {
+    // Remove user data from localStorage (or sessionStorage)
+    localStorage.removeItem("token"); // Remove token or any other auth data
+    localStorage.removeItem("user"); // Remove user data if stored in localStorage
+
+    // Optionally, clear any session or cookies if you're using them
+
+    // Redirect the user to the login page after logging out
+    navigate("/login");
+  };
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -70,7 +83,9 @@ export default function NavBar() {
           </ListItemIcon>
           <ListItemText primary="Create An Account" />
         </ListItem>
-        <ListItem button>
+        
+        {/* Logout button with functionality */}
+        <ListItem button onClick={handleLogout}>
           <ListItemIcon>
             <ExitToApp sx={{ color: theme.palette.text.primary }} />
           </ListItemIcon>

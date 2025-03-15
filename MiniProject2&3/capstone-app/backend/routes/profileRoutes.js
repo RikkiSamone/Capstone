@@ -34,7 +34,7 @@ const upload = multer({
 });
 
 // Get current user profile (protected route)
-router.get("/me", authenticateJWT, profileController.getProfile);
+router.get("/myprofile", authenticateJWT, profileController.getProfile);
 
 // Update user profile (protected route with file upload)
 router.put("/profile", authenticateJWT, upload.single("profilePic"), profileController.updateProfile);

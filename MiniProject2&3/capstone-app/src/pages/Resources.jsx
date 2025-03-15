@@ -11,10 +11,18 @@ import {
   CardMedia,
 } from "@mui/material";
 
+// Sample recommended videos
 const recommendedVideos = [
   { title: "What is Academic Coaching?", videoId: "BYBJQ5rIFjA" },
   { title: "6 Science-Based Study Skills", videoId: "CPxSzxylRCI" },
   { title: "Goal Setting", videoId: "i0QfCZjASX8" },
+];
+
+// Sample PDFs (replace with your actual PDF URLs)
+const pdfLinks = [
+  { title: "Learning Scientists", url: "../../public/assets/pdfs/Learning Scientists.pdf" },
+  { title: "Self-Care", url: "../../public/assets/pdfs/Self-Care.pdf" },
+  { title: "Prepping for Midterms", url: "../../public/assets/pdfs/Midterm Prep.pdf" },
 ];
 
 const ResourcesPage = () => {
@@ -105,6 +113,31 @@ const ResourcesPage = () => {
             </Grid>
           </>
         )}
+
+        {/* PDFs Section */}
+        <Typography variant="h5" gutterBottom sx={{ marginTop: 4 }}>
+          Downloadable PDFs
+        </Typography>
+        <Grid container spacing={3}>
+          {pdfLinks.map((pdf, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card sx={{ maxWidth: "100%" }}>
+                <CardContent>
+                  <Typography variant="h6">{pdf.title}</Typography>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    href={pdf.url}
+                    target="_blank" // Opens in a new tab
+                    sx={{ marginTop: 2 }}
+                  >
+                    Download PDF
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
       </Box>
     </Box>
   );

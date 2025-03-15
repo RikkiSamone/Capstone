@@ -9,13 +9,15 @@ import MeetOurCoaches from "../components/Coaches/coachBios";
 import BookingPage from "../components/Dashboard/bookingPage";
 import CoachAvailabilityForm from "../components/CoachAvailability/CoachAvailability";
 import CoachCalendar from "../components/CoachCalendar/CoachCalendar";
-import CoachAdminPage from "../pages/CoachAdminPage";
-import CoachLogin from "../components/CoachLogIn/CoachLogin";
+import CoachDashboardComingSoon from "../pages/CoachingDashboard";
+//import CoachLogin from "../components/CoachLogIn/CoachLogin";
 import DashboardPage from "../components/Dashboard/dashboard";
 import ProfilePage from "../pages/UpdateProfilePage";
 import MyProfilePage from "../pages/MyProfile";
 import ResourcesPage from "../pages/Resources";
 import Unauthorized from "../pages/UnauthorizedPage";
+
+
 
 // AppRoutes component
 function AppRoutes(props) {
@@ -40,7 +42,7 @@ function AppRoutes(props) {
 
       {/* user creation and login */}
       <Route path='/create-account' element={<CreateAccount />} />
-      <Route path='/login' element={isAuthenticated ? <Navigate to="/mydashboard" /> : <LoginForm />} />
+      <Route path='/login' element={<LoginForm />} />
       <Route path='/update-profile' element={<ProfilePage />} />
           
 
@@ -49,8 +51,7 @@ function AppRoutes(props) {
       <Route path='/book' element={<BookingPage />} />
 
       {/* Coach Interface */}
-      <Route path="/coach-dashboard" element={user?.role === "coach" ? <CoachAdminPage /> : <Navigate to="/unauthorized" />} />
-      <Route path="/coach-login" element={<CoachLogin />} />
+      <Route path="/coach-dashboard" element={<CoachDashboardComingSoon />} />
       <Route path='/coach-availability' element={<CoachAvailabilityForm />} />
       <Route path='/coach-calendar' element={<CoachCalendar />} />
 
@@ -64,6 +65,7 @@ function AppRoutes(props) {
       <Route path="*" element={<PageNotFound />} />
       <Route path="/unauthorized" element={<Unauthorized />} />
     </Routes>
+    
   );
 }
 

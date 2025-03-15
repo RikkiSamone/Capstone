@@ -62,7 +62,12 @@ exports.getAvailableSlots = async (req, res) => {
   // Log the received date for debugging
   console.log("Received date from frontend:", date);
 
-   // Ensure the date is in the correct format (YYYY-MM-DD)
+  // Ensure the date is in the correct format (YYYY-MM-DD)
+  console.log("Received date from frontend:", date);
+      if (isNaN(new Date(date).getTime())) {
+        console.error("Invalid date received:", date);
+        return res.status(400).json({ message: "Invalid date" });
+      }
   const formattedDate = new Date(date).toISOString().split('T')[0];
   console.log("Formatted date for query:", formattedDate);  // Log the formatted date
 
